@@ -30,13 +30,9 @@ public class UpdateHandler : IUpdateHandler
         await handler;
     }
     
-    private async Task<Message> BotOnMessageReceived(Message message, CancellationToken cancellationToken)
+    private async Task BotOnMessageReceived(Message message, CancellationToken cancellationToken)
     {
-        return await _botClient.SendTextMessageAsync(
-            chatId: message.Chat.Id,
-            text: "Choose",
-            replyToMessageId: message.MessageId,
-            cancellationToken: cancellationToken);
+        await MessageAttributesHandler.InvokeByMessageType(_botClient, message, cancellationToken);
     }
     
     private async Task BotOnCallbackQueryReceived(CallbackQuery callbackQuery, CancellationToken cancellationToken)

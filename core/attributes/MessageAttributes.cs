@@ -5,13 +5,13 @@ namespace telegram_pythonized_bot.core.attributes;
 public abstract class MessageAttributes
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class MessageTypeAttribute : Attribute
+    public class FilterByTypeAttribute : Attribute
     {
         // Свойство для хранения типа сообщения
         public MessageType Type { get; }
 
         // Конструктор для инициализации типа сообщения
-        public MessageTypeAttribute(MessageType type)
+        public FilterByTypeAttribute(MessageType type)
         {
             Type = type;
         }
