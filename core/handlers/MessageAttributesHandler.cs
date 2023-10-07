@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Intrinsics.X86;
 using telegram_pythonized_bot.core.attributes;
@@ -17,23 +18,21 @@ public class MessageAttributesHandler
                 method.IsDefined(typeof(MessageAttributes.CommandAttribute), true) ||
                 method.IsDefined(typeof(MessageAttributes.FilterByTypeAttribute), true)
             ).ToArray();
-
         
         //var methods = typeof(UpdateHandler).GetMethods(BindingFlags.Static | BindingFlags.Public);
         foreach (var method in methods)
         {
-            var commandAttribute = method.GetCustomAttribute<MessageAttributes.CommandAttribute>();
-            if (commandAttribute != null && message is { Type: MessageType.Text } && commandAttribute.Commands.Contains(message.Text))
+            var methodCustomAttribute = method.GetCustomAttributes().First(attr =>
+                attr is MessageAttributes.CommandAttribute or MessageAttributes.FilterByTypeAttribute);
+            //if (commandAttribute != null && message is { Type: MessageType.Text } && commandAttribute.Commands.Contains(message.Text))
+            switch (methodCustomAttribute)
             {
-                await (Task) method.Invoke(null, new object[] { botClient, message, message.From!, cancellationToken })!;
-                break;
-            }
-            
-            var messageTypeAttribute = method.GetCustomAttribute<MessageAttributes.FilterByTypeAttribute>();
-            if (messageTypeAttribute != null && message.Type == messageTypeAttribute.Type)
-            {
-                await (Task) method.Invoke(null, new object[] { botClient, message, message.From!,  cancellationToken })!;
-                break;
+                case MessageAttributes.CommandAttribute command when message is { Type: MessageType.Text} && command.Commands.Contains(message.Text): 
+                    await (Task) method.Invoke(null, new object[] { botClient, message, message.From!, cancellationToken })!;
+                    return;
+                case MessageAttributes.FilterByTypeAttribute attr when attr.Type.Contains(message.Type):
+                    await (Task) method.Invoke(null, new object[] { botClient, message, message.From!,  cancellationToken })!;
+                    return;
             }
         }
     }

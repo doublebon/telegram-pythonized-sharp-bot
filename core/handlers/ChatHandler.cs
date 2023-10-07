@@ -29,6 +29,17 @@ public class ChatHandler
         );
     }
     
+    [MessageAttributes.FilterByType(MessageType.Audio, MessageType.Document)]
+    public static async Task ProcessAudio(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
+    {
+        // Отправляем ответное сообщение пользователю с тем же текстом
+        await bot.SendTextMessageAsync(
+            chatId: message.Chat,
+            text: $"Ты выслал аудио: {message.Text} и тебя зовут: {user.Username}",
+            cancellationToken: cancellationToken
+        );
+    }
+    
     [MessageAttributes.FilterByType(MessageType.Photo)]
     public static async Task ProcessPhoto(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
     {

@@ -8,10 +8,10 @@ public abstract class MessageAttributes
     public class FilterByTypeAttribute : Attribute
     {
         // Свойство для хранения типа сообщения
-        public MessageType Type { get; }
+        public MessageType[] Type { get; }
 
         // Конструктор для инициализации типа сообщения
-        public FilterByTypeAttribute(MessageType type)
+        public FilterByTypeAttribute(params MessageType[] type)
         {
             Type = type;
         }
