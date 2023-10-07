@@ -7,7 +7,7 @@ namespace telegram_pythonized_bot;
 
 public class ChatHandler
 {
-    [MessageAttributes.Command("/kek", "/lal")]
+    [MessageAttributes.Command("/help")]
     public static async Task ProcessCommand(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
     {
         // Отправляем ответное сообщение пользователю с тем же текстом
