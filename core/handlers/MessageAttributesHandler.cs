@@ -8,7 +8,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace telegram_pythonized_bot.core.handlers;
 
-public class MessageAttributesHandler
+public static class MessageAttributesHandler
 {
     public static async Task InvokeByMessageType(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
     {

@@ -3,7 +3,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace telegram_pythonized_bot.core.handlers;
+namespace telegram_pythonized_bot;
 
 public class ChatHandler
 {
