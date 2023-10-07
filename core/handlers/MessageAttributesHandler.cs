@@ -19,12 +19,11 @@ public static class MessageAttributesHandler
                 method.IsDefined(typeof(MessageAttributes.FilterByTypeAttribute), true)
             ).ToArray();
         
-        //var methods = typeof(UpdateHandler).GetMethods(BindingFlags.Static | BindingFlags.Public);
         foreach (var method in methods)
         {
             var methodCustomAttribute = method.GetCustomAttributes().First(attr =>
                 attr is MessageAttributes.CommandAttribute or MessageAttributes.FilterByTypeAttribute);
-            //if (commandAttribute != null && message is { Type: MessageType.Text } && commandAttribute.Commands.Contains(message.Text))
+            
             switch (methodCustomAttribute)
             {
                 case MessageAttributes.CommandAttribute command when message is { Type: MessageType.Text} && command.Commands.Contains(message.Text): 
