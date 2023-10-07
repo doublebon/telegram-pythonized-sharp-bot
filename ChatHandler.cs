@@ -10,10 +10,9 @@ public class ChatHandler
     [MessageAttributes.Command("/help")]
     public static async Task ProcessCommand(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
     {
-        // Отправляем ответное сообщение пользователю с тем же текстом
         await bot.SendTextMessageAsync(
             chatId: message.Chat,
-            text: $"Ты выслал команду: {message.Text} и тебя зовут: {user.Username}",
+            text: $"You was send a command: {message.Text} and your id is: {user.Id}",
             cancellationToken: cancellationToken
         );
     }
@@ -21,10 +20,9 @@ public class ChatHandler
     [MessageAttributes.FilterByType(MessageType.Text)]
     public static async Task ProcessText(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
     {
-        // Отправляем ответное сообщение пользователю с тем же текстом
         await bot.SendTextMessageAsync(
             chatId: message.Chat,
-            text: "Это твое текстовое сообщение: " + message.Text+" "+user.Username,
+            text: $"You was send a text: {message.Text} and your id is: {user.Id}",
             cancellationToken: cancellationToken
         );
     }
@@ -32,10 +30,9 @@ public class ChatHandler
     [MessageAttributes.FilterByType(MessageType.Audio, MessageType.Document)]
     public static async Task ProcessAudio(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
     {
-        // Отправляем ответное сообщение пользователю с тем же текстом
         await bot.SendTextMessageAsync(
             chatId: message.Chat,
-            text: $"Ты выслал аудио: {message.Text} и тебя зовут: {user.Username}",
+            text: $"You was send a audio and your id is: {user.Id}",
             cancellationToken: cancellationToken
         );
     }
@@ -47,7 +44,7 @@ public class ChatHandler
         await bot.SendPhotoAsync(
             chatId: message.Chat,
             replyToMessageId: message.MessageId,
-            caption: "Здарова, заебал",
+            caption: $"You was send a photo: {message.Text} and your id is: {user.Id}",
             photo: InputFile.FromFileId(message.Photo.First().FileId),
             cancellationToken: cancellationToken);
     }
