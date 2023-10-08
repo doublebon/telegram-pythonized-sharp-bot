@@ -10,16 +10,16 @@ namespace telegram_pythonized_bot.core.handlers;
 
 public static class MessageAttributesHandler
 {
+    private static readonly MethodInfo[] Methods = typeof(ChatHandler)
+        .GetMethods(BindingFlags.Static | BindingFlags.Public)
+        .Where(method =>
+            method.IsDefined(typeof(MessageAttributes.CommandAttribute), true) ||
+            method.IsDefined(typeof(MessageAttributes.FilterByTypeAttribute), true)
+        ).ToArray();
+    
     public static async Task InvokeByMessageType(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
     {
-        var methods = typeof(ChatHandler)
-            .GetMethods(BindingFlags.Static | BindingFlags.Public)
-            .Where(method =>
-                method.IsDefined(typeof(MessageAttributes.CommandAttribute), true) ||
-                method.IsDefined(typeof(MessageAttributes.FilterByTypeAttribute), true)
-            ).ToArray();
-        
-        foreach (var method in methods)
+        foreach (var method in Methods)
         {
             var methodCustomAttribute = method.GetCustomAttributes().First(attr =>
                 attr is MessageAttributes.CommandAttribute or MessageAttributes.FilterByTypeAttribute);
