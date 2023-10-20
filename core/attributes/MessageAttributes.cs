@@ -30,4 +30,9 @@ public abstract class MessageAttributes
         }
     }
     
+    [AttributeUsage(AttributeTargets.Method)]
+    public class AnyAttribute : Attribute
+    {
+    }
+    
 }

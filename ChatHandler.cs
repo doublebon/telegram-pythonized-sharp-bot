@@ -48,4 +48,14 @@ public class ChatHandler
             photo: InputFile.FromFileId(message.Photo.First().FileId),
             cancellationToken: cancellationToken);
     }
+    
+    [MessageAttributes.Any]
+    public static async Task ProcessTextAny(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
+    {
+        await bot.SendTextMessageAsync(
+            chatId: message.Chat,
+            text: $"Got any filter",
+            cancellationToken: cancellationToken
+        );
+    }
 }
