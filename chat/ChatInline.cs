@@ -14,12 +14,12 @@ public class ChatInline
             // displayed result
             new InlineQueryResultArticle(
                 id: "1",
-                title: "Первый",
-                inputMessageContent: new InputTextMessageContent("даров")),
+                title: "First",
+                inputMessageContent: new InputTextMessageContent("Hello")),
             new InlineQueryResultArticle(
                 id: "2",
-                title: "Ебать",
-                inputMessageContent: new InputTextMessageContent("заебал")),
+                title: "Second",
+                inputMessageContent: new InputTextMessageContent("Hi")),
         };
         
         await bot.AnswerInlineQueryAsync(
