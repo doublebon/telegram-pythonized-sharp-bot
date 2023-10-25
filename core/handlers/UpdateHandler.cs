@@ -24,6 +24,7 @@ public class UpdateHandler : IUpdateHandler
         {
             { Message: { } message }                       => BotOnMessageReceived(message, cancellationToken),
             { CallbackQuery: { } callbackQuery }           => BotOnCallbackQueryReceived(callbackQuery, cancellationToken),
+            { InlineQuery: { } inlineQuery }                 => BotOnInlineQueryReceived(inlineQuery, cancellationToken),
             _                                              => UnknownUpdateHandlerAsync(update)
         };
 
@@ -32,6 +33,7 @@ public class UpdateHandler : IUpdateHandler
     
     private async Task BotOnMessageReceived(Message message, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Received message from {from}:\n{message}", message.From, message);
         await MessageAttributesHandler.InvokeByMessageType(_botClient, message, cancellationToken);
     }
     
@@ -52,22 +54,8 @@ public class UpdateHandler : IUpdateHandler
     
     private async Task BotOnInlineQueryReceived(InlineQuery inlineQuery, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Received inline query from: {InlineQueryFromId}", inlineQuery.From.Id);
-
-        InlineQueryResult[] results = {
-            // displayed result
-            new InlineQueryResultArticle(
-                id: "1",
-                title: "TgBots",
-                inputMessageContent: new InputTextMessageContent("hello"))
-        };
-
-        await _botClient.AnswerInlineQueryAsync(
-            inlineQueryId: inlineQuery.Id,
-            results: results,
-            cacheTime: 0,
-            isPersonal: true,
-            cancellationToken: cancellationToken);
+        _logger.LogInformation("Received inline query from: {InlineQueryFromId}", inlineQuery.From.Username);
+        await InlineAttributesHandler.InvokeByInlineType(_botClient, inlineQuery, cancellationToken);
     }
     
     private async Task BotOnChosenInlineResultReceived(ChosenInlineResult chosenInlineResult, CancellationToken cancellationToken)

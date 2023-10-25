@@ -2,11 +2,13 @@ using telegram_pythonized_bot.core.attributes;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InlineQueryResults;
 
-namespace telegram_pythonized_bot;
+namespace telegram_pythonized_bot.chat;
 
-public class ChatHandler
+public class ChatMessage
 {
+    
     [MessageAttributes.Command("/help")]
     public static async Task ProcessCommand(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
     {

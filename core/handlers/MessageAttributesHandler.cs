@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Intrinsics.X86;
+using telegram_pythonized_bot.chat;
 using telegram_pythonized_bot.core.attributes;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -16,7 +17,7 @@ public static class MessageAttributesHandler
         typeof(MessageAttributes.AnyAttribute)
     };
     
-    private static readonly MethodInfo[] Methods = typeof(ChatHandler)
+    private static readonly MethodInfo[] Methods = typeof(ChatMessage)
         .GetMethods(BindingFlags.Static | BindingFlags.Public)
         .Where(method => AttrTypes.Any(method.IsDefined))
         .ToArray();
