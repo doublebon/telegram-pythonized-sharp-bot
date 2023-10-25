@@ -2,7 +2,6 @@ using telegram_pythonized_bot.core.attributes;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InlineQueryResults;
 
 namespace telegram_pythonized_bot.chat;
 

@@ -1,6 +1,5 @@
 using System.Reflection;
 using telegram_pythonized_bot.core.attributes;
-using telegram_pythonized_bot.core.handlers;
 
 namespace telegram_pythonized_bot.core.support;
 
