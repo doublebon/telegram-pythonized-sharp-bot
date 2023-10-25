@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using telegram_pythonized_bot.config;
+using telegram_pythonized_bot.core.extensions;
 using telegram_pythonized_bot.core.handlers;
 using telegram_pythonized_bot.core.services.@abstract;
-using telegram_pythonized_bot.extensions;
 using Telegram.Bot;
 
 var host = Host.CreateDefaultBuilder(args)

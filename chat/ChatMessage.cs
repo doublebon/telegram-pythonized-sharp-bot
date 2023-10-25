@@ -9,16 +9,6 @@ namespace telegram_pythonized_bot.chat;
 public class ChatMessage
 {
     
-    [MessageAttributes.Command("/help")]
-    public static async Task ProcessCommand(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
-    {
-        await bot.SendTextMessageAsync(
-            chatId: message.Chat,
-            text: $"You was send a command: {message.Text} and your id is: {user.Id}",
-            cancellationToken: cancellationToken
-        );
-    }
-    
     [MessageAttributes.FilterByType(MessageType.Text)]
     public static async Task ProcessText(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
     {
@@ -57,6 +47,16 @@ public class ChatMessage
         await bot.SendTextMessageAsync(
             chatId: message.Chat,
             text: $"Got any filter",
+            cancellationToken: cancellationToken
+        );
+    }
+    
+    [MessageAttributes.Command("/help")]
+    public static async Task ProcessCommand(ITelegramBotClient bot, Message message, User user, CancellationToken cancellationToken)
+    {
+        await bot.SendTextMessageAsync(
+            chatId: message.Chat,
+            text: $"You was send a command: {message.Text} and your id is: {user.Id}",
             cancellationToken: cancellationToken
         );
     }

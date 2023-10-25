@@ -1,7 +1,7 @@
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
-namespace telegram_pythonized_bot.extensions;
+namespace telegram_pythonized_bot.core.extensions;
 
 public static class Extensions
 {

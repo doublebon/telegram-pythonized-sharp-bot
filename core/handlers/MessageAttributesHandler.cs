@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Runtime.Intrinsics.X86;
 using telegram_pythonized_bot.chat;
 using telegram_pythonized_bot.core.attributes;
+using telegram_pythonized_bot.core.support;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -16,12 +17,9 @@ public static class MessageAttributesHandler
         typeof(MessageAttributes.FilterByTypeAttribute),
         typeof(MessageAttributes.AnyAttribute)
     };
-    
-    private static readonly MethodInfo[] Methods = typeof(ChatMessage)
-        .GetMethods(BindingFlags.Static | BindingFlags.Public)
-        .Where(method => AttrTypes.Any(method.IsDefined))
-        .ToArray();
-    
+
+    private static readonly MethodInfo[] Methods = SupportUtils.ParseAllChatMethodsWithAttributes("chat", AttrTypes);
+
     public static async Task InvokeByMessageType(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
     {
         foreach (var method in Methods)
